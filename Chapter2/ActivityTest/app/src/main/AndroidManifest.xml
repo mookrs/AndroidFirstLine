@@ -1,0 +1,50 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.activitytest">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <!-- standard/singleTop/singleTask/singleInstance -->
+        <!-- 当活动的启动模式指定为singleTask，每次启动该活动时系统首先会在返回栈中检查是否存在该活动的实例，
+        如果发现已经存在则直接使用该实例，并把在这个活动之上的所有活动统统出栈，
+        如果没有发现就会创建一个新的活动实例。 -->
+        <activity
+            android:name=".FirstActivity"
+            android:label="This is FirstActivity"
+            android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SecondActivity"
+            android:launchMode="singleInstance">
+            <!-- 每个Intent中只能指定一个action，但能指定多个category -->
+            <intent-filter>
+                <action android:name="com.example.activitytest.ACTION_START" />
+                <!-- android.intent.category.DEFAULT是一种默认的category，
+                在调用startActivity()方法的时候会自动将这个category添加到Intent中 -->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.example.activitytest.MY_CATEGORY" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ThirdActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- <intent-filter>中的<data>标签，用于更精确地指定当前活动能够响应什么类型的数据。
+                <data>标签中主要可以配置以下内容。
+                1. android:scheme 用于指定数据的协议部分，如 http 部分。
+                2. android:host 用于指定数据的主机名部分，如 www.baidu.com 部分。
+                3. android:port 用于指定数据的端口部分。
+                4. android:path 用于指定主机名和端口之后的部分，如一段网址中跟在域名之后的内容。
+                5. android:mimeType 用于指定可以处理的数据类型，允许使用通配符的方式进行指定。-->
+                <data android:scheme="http" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
