@@ -15,7 +15,7 @@ import android.widget.Toast;
 /**
  * Created by mookrs on 15/7/1.
  */
-public class FirstActivity extends Activity {
+public class FirstActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
