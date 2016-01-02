@@ -41,11 +41,12 @@ public class SecondActivity extends Activity {
                 //finish();
 
                 // 测试FirstActivity的singleTop/singleTask启动模式
-                Intent intent = new Intent(SecondActivity.this, FirstActivity.class);
-                startActivity(intent);
+                // Intent intent = new Intent(SecondActivity.this, FirstActivity.class);
+                // startActivity(intent);
 
-                //Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
-                //startActivity(intent);
+                // 测试SecondActivity的singleInstance启动模式
+                Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
+                startActivity(intent);
             }
         });
     }

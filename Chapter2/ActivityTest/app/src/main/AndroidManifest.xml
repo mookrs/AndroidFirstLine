@@ -13,7 +13,7 @@
         <activity
             android:name=".FirstActivity"
             android:label="This is FirstActivity"
-            android:launchMode="singleTask">
+            android:launchMode="standard">
             <!--android:launchMode="singleTop"-->
             <!--android:launchMode="singleTask"-->
 

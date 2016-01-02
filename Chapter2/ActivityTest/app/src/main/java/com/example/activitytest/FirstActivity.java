@@ -62,7 +62,8 @@ public class FirstActivity extends Activity {
                 //Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
                 //startActivity(intent);
 
-                // 测试singleTop启动模式
+                // 测试FirstActivity的singleTop/singleTask启动模式
+                // 测试SecondActivity的singleInstance启动模式
                 Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
                 startActivity(intent);
 
