@@ -13,7 +13,10 @@
         <activity
             android:name=".FirstActivity"
             android:label="This is FirstActivity"
-            android:launchMode="standard">
+            android:launchMode="singleTask">
+            <!--android:launchMode="singleTop"-->
+            <!--android:launchMode="singleTask"-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,6 +25,9 @@
         <activity
             android:name=".SecondActivity"
             android:launchMode="singleInstance">
+            <!--android:launchMode="standard"-->
+            <!--为FirstActivity测试singleTask时，SecondActivity应使用standard模式，这样才会调用onDestroy-->
+
             <!-- 每个Intent中只能指定一个action，但能指定多个category -->
             <intent-filter>
                 <action android:name="com.example.activitytest.ACTION_START" />

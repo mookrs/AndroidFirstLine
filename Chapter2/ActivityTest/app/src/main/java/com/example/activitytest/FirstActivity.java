@@ -20,9 +20,9 @@ public class FirstActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Log.d("FirstActivity", this.toString());
+        Log.d("FirstActivity", this.toString());
         Log.d("FirstActivity", "Task id is " + getTaskId());
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.first_layout);
 
         Button button1 = (Button) findViewById(R.id.button_1);
@@ -58,9 +58,11 @@ public class FirstActivity extends Activity {
                 //Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
                 //startActivityForResult(intent, 1);
 
+                // 在FirstActivity的基础上启动FirstActivity
                 //Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
                 //startActivity(intent);
 
+                // 测试singleTop启动模式
                 Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
                 startActivity(intent);
 
