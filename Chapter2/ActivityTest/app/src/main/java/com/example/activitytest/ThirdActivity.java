@@ -19,6 +19,7 @@ public class ThirdActivity extends BaseActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.third_layout);
 
+        // 随时随地退出程序
         Button button3 = (Button) findViewById(R.id.button_3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
