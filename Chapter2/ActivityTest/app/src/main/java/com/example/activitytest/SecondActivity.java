@@ -66,6 +66,7 @@ public class SecondActivity extends BaseActivity {
         Log.d("SecondActivity", "onDestroy");
     }
 
+    // SecondActivity所需要的数据全部都能在方法参数中体现出来
     public static void actionStart(Context context, String data1, String data2) {
         Intent intent = new Intent(context, SecondActivity.class);
         intent.putExtra("param1", data1);

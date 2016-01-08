@@ -64,10 +64,11 @@ public class FirstActivity extends BaseActivity {
 
                 // 测试FirstActivity的singleTop/singleTask启动模式
                 // 测试SecondActivity的singleInstance启动模式
-                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+                //startActivity(intent);
 
-                //SecondActivity.actionStart(FirstActivity.this, "data1", "data2");
+                // 利用SecondActivity的actionStart方法传递数据，便于接口调用
+                SecondActivity.actionStart(FirstActivity.this, "data1", "data2");
             }
         });
     }
