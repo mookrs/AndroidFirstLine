@@ -37,25 +37,25 @@ public class MainActivity extends Activity {
     }
 
     private void initFruits() {
-        Fruit apple = new Fruit("Apple", R.mipmap.apple_pic);
+        Fruit apple = new Fruit("Apple", R.drawable.apple_pic);
         fruitList.add(apple);
-        Fruit banana = new Fruit("Banana", R.mipmap.banana_pic);
+        Fruit banana = new Fruit("Banana", R.drawable.banana_pic);
         fruitList.add(banana);
-        Fruit orange = new Fruit("Orange", R.mipmap.orange_pic);
+        Fruit orange = new Fruit("Orange", R.drawable.orange_pic);
         fruitList.add(orange);
-        Fruit watermelon = new Fruit("Watermelon", R.mipmap.watermelon_pic);
+        Fruit watermelon = new Fruit("Watermelon", R.drawable.watermelon_pic);
         fruitList.add(watermelon);
-        Fruit pear = new Fruit("Pear", R.mipmap.pear_pic);
+        Fruit pear = new Fruit("Pear", R.drawable.pear_pic);
         fruitList.add(pear);
-        Fruit grape = new Fruit("Grape", R.mipmap.grape_pic);
+        Fruit grape = new Fruit("Grape", R.drawable.grape_pic);
         fruitList.add(grape);
-        Fruit pineapple = new Fruit("Pineapple", R.mipmap.pineapple_pic);
+        Fruit pineapple = new Fruit("Pineapple", R.drawable.pineapple_pic);
         fruitList.add(pineapple);
-        Fruit strawberry = new Fruit("Strawberry", R.mipmap.strawberry_pic);
+        Fruit strawberry = new Fruit("Strawberry", R.drawable.strawberry_pic);
         fruitList.add(strawberry);
-        Fruit cherry = new Fruit("Cherry", R.mipmap.cherry_pic);
+        Fruit cherry = new Fruit("Cherry", R.drawable.cherry_pic);
         fruitList.add(cherry);
-        Fruit mango = new Fruit("Mango", R.mipmap.mango_pic);
+        Fruit mango = new Fruit("Mango", R.drawable.mango_pic);
         fruitList.add(mango);
     }
 
