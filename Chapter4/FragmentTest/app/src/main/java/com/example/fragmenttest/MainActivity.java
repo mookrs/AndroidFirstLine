@@ -46,15 +46,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button:
-                AnotherRightFragment fragment = new AnotherRightFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                // 开启一个事务，通过调用beginTransaction()方法开启
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.right_layout, fragment);
-                // 接收一个名字用于述返回栈的状态
-                transaction.addToBackStack(null);
-                // 提交事务
-                transaction.commit();
+//                AnotherRightFragment fragment = new AnotherRightFragment();
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction transaction = fragmentManager.beginTransaction();   // 开启一个事务，通过调用beginTransaction()方法开启
+//                transaction.replace(R.id.right_layout, fragment);
+//                transaction.addToBackStack(null);   // 接收一个名字用于述返回栈的状态
+//                transaction.commit();   // 提交事务
                 break;
             default:
                 break;
