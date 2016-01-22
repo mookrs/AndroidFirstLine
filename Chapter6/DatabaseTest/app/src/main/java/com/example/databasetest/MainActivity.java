@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("price", 10.99);
-                db.update("Book", values, "name = ?", new String[]{"The Da Vinci Code" });
+                db.update("Book", values, "name = ?", new String[]{"The Da Vinci Code"});
             }
         });
         Button deleteButton = (Button) findViewById(R.id.delete_data);
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.delete("Book", "pages > ?", new String[]{"500" });
+                db.delete("Book", "pages > ?", new String[]{"500"});
             }
         });
         Button queryButton = (Button) findViewById(R.id.query_data);
@@ -85,6 +85,32 @@ public class MainActivity extends AppCompatActivity {
                     } while (cursor.moveToNext());
                 }
                 cursor.close();
+            }
+        });
+        Button replaceData = (Button) findViewById(R.id.replace_data);
+        replaceData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                db.beginTransaction();  // 开启事务
+                try {
+                    db.delete("Book", null, null);
+                    if (true) {
+                        // 在这里手动抛出一个异常，让事务失败
+                        throw new NullPointerException();
+                    }
+                    ContentValues values = new ContentValues();
+                    values.put("name", "Game of Thrones");
+                    values.put("author", "George Martin");
+                    values.put("pages", 720);
+                    values.put("price", 20.85);
+                    db.insert("Book", null, values);
+                    db.setTransactionSuccessful();  // 事务已经执行成功
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    db.endTransaction();    // 结束事务
+                }
             }
         });
     }
