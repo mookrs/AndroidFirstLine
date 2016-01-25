@@ -17,7 +17,8 @@
         </activity>
         <provider
             android:name="com.example.databasetest.DatabaseProvider"
-            android:authorities="com.example.databasetest.provider" />
+            android:authorities="com.example.databasetest.provider"
+            android:exported="true" />
     </application>
 
 </manifest>
