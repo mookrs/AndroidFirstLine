@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private IntentFilter receiveFilter;
     private MessageReceiver messageReceiver;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         content = (TextView) findViewById(R.id.content);
         receiveFilter = new IntentFilter();
         receiveFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        receiveFilter.setPriority(100);
         messageReceiver = new MessageReceiver();
         registerReceiver(messageReceiver, receiveFilter);
     }
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
             sender.setText(address);
             content.setText(fullMessage);
+            abortBroadcast();
         }
     }
 
