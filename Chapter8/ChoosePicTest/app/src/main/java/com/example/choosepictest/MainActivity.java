@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 创建File对象，用于存储选择的照片
                 File outputImage = new File(Environment.getExternalStorageDirectory(), "output_image.jpg");
                 try {
                     if (outputImage.exists()) {
