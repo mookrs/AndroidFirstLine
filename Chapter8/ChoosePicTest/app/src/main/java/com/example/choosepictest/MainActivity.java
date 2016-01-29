@@ -1,5 +1,6 @@
 package com.example.choosepictest;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,9 +21,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int TAKE_PHOTO = 1;
     public static final int CROP_PHOTO = 2;
+    public static final int PICKER_PHOTO = 3;
     private Button takePhoto;
     private ImageView picture;
     private Uri imageUri;
+
+    private Button chooseFromAlbum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, TAKE_PHOTO); // 启动相机程序
             }
         });
+
+        chooseFromAlbum = (Button) findViewById(R.id.choose_from_album);
+        chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建File对象，用于存储选择的照片
+                File outputImage = new File(Environment.getExternalStorageDirectory(), "output_image.jpg");
+                try {
+                    if (outputImage.exists()) {
+                        outputImage.delete();
+                    }
+                    outputImage.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                imageUri = Uri.fromFile(outputImage);
+                Intent intent = new Intent("android.intent.action.GET_CONTENT");
+                intent.setType("image/*");
+                intent.putExtra("crop", true);
+                intent.putExtra("scale", true);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, PICKER_PHOTO);
+            }
+        });
     }
 
     @Override
@@ -69,6 +97,19 @@ public class MainActivity extends AppCompatActivity {
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         picture.setImageBitmap(bitmap); // 将裁剪后的照片显示出来
                     } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            // See https://segmentfault.com/q/1010000004123853
+            case PICKER_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    ContentResolver resolver = getContentResolver();
+                    Uri originalUri = data.getData();   // 获得图片的uri
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+                        picture.setImageBitmap(bitmap);
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
