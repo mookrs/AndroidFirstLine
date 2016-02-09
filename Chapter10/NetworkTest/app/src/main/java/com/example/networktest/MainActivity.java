@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet httpGet = new HttpGet("http://192.168.33.10/get_data.xml");
+                    HttpGet httpGet = new HttpGet("http://192.168.0.108/get_data.xml");
                     HttpResponse httpResponse = httpClient.execute(httpGet);
                     if (httpResponse.getStatusLine().getStatusCode() == 200) {
                         // 请求和响应都成功了
