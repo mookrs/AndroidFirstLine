@@ -15,6 +15,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xmlpull.v1.XmlPullParser;
@@ -103,7 +105,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet httpGet = new HttpGet("http://192.168.0.108/get_data.xml");
+
+                    //HttpGet httpGet = new HttpGet("http://192.168.0.108/get_data.xml");
+
+                    HttpGet httpGet = new HttpGet("http://192.168.0.108/get_data.json");
+
                     HttpResponse httpResponse = httpClient.execute(httpGet);
                     if (httpResponse.getStatusLine().getStatusCode() == 200) {
                         // 请求和响应都成功了
@@ -118,13 +124,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         //parseXMLWithPull(response);
 
-                        parseXMLWithSAX(response);
+                        //parseXMLWithSAX(response);
+
+                        parseJSONWithJSONObject(response);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseJSONWithJSONObject(String jsonData) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String id = jsonObject.getString("id");
+                String name = jsonObject.getString("name");
+                String version = jsonObject.getString("version");
+                Log.d("MainActivity", "id is " + id);
+                Log.d("MainActivity", "name is " + name);
+                Log.d("MainActivity", "version is " + version);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseXMLWithSAX(String xmlData) {
