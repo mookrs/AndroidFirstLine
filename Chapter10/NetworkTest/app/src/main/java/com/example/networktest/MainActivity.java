@@ -15,6 +15,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -24,6 +26,8 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -106,19 +110,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         HttpEntity entity = httpResponse.getEntity();
                         String response = EntityUtils.toString(entity, "utf-8");
 
-                        parseXMLWithPull(response);
+                        //Message message = new Message();
+                        //message.what = SHOW_RESPONSE;
+                        // 将服务器返回的结果存放到Message中
+                        //message.obj = response.toString();
+                        //handler.sendMessage(message);
 
-//                        Message message = new Message();
-//                        message.what = SHOW_RESPONSE;
-//                        // 将服务器返回的结果存放到Message中
-//                        message.obj = response.toString();
-//                        handler.sendMessage(message);
+                        //parseXMLWithPull(response);
+
+                        parseXMLWithSAX(response);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseXMLWithSAX(String xmlData) {
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            XMLReader xmlReader = factory.newSAXParser().getXMLReader();
+            ContentHandler handler = new ContentHandler();
+            // 将ContentHandler的实例设置到XMLReader中
+            xmlReader.setContentHandler(handler);
+            // 开始执行解析
+            xmlReader.parse(new InputSource(new StringReader(xmlData)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseXMLWithPull(String xmlData) {
