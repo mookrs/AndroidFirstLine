@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,10 +15,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -95,22 +99,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet httpGet = new HttpGet("http://www.baidu.com");
+                    HttpGet httpGet = new HttpGet("http://192.168.33.10/get_data.xml");
                     HttpResponse httpResponse = httpClient.execute(httpGet);
                     if (httpResponse.getStatusLine().getStatusCode() == 200) {
                         // 请求和响应都成功了
                         HttpEntity entity = httpResponse.getEntity();
                         String response = EntityUtils.toString(entity, "utf-8");
-                        Message message = new Message();
-                        message.what = SHOW_RESPONSE;
-                        // 将服务器返回的结果存放到Message中
-                        message.obj = response.toString();
-                        handler.sendMessage(message);
+
+                        parseXMLWithPull(response);
+
+//                        Message message = new Message();
+//                        message.what = SHOW_RESPONSE;
+//                        // 将服务器返回的结果存放到Message中
+//                        message.obj = response.toString();
+//                        handler.sendMessage(message);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseXMLWithPull(String xmlData) {
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser = factory.newPullParser();
+            xmlPullParser.setInput(new StringReader(xmlData));
+            int eventType = xmlPullParser.getEventType();
+            String id = "";
+            String name = "";
+            String version = "";
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                String nodeName = xmlPullParser.getName();
+                switch (eventType) {
+                    // 开始解析某个结点
+                    case XmlPullParser.START_TAG: {
+                        if ("id".equals(nodeName)) {
+                            id = xmlPullParser.nextText();
+                        } else if ("name".equals(nodeName)) {
+                            name = xmlPullParser.nextText();
+                        } else if ("version".equals(nodeName)) {
+                            version = xmlPullParser.nextText();
+                        }
+                        break;
+                    }
+                    case XmlPullParser.END_TAG: {
+                        if ("app".equals(nodeName)) {
+                            Log.d("MainActivity", "id is " + id);
+                            Log.d("MainActivity", "name is " + name);
+                            Log.d("MainActivity", "version is " + version);
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                eventType = xmlPullParser.next();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
