@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -28,6 +31,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
@@ -126,13 +130,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         //parseXMLWithSAX(response);
 
-                        parseJSONWithJSONObject(response);
+                        //parseJSONWithJSONObject(response);
+
+                        parseJSONWithGSON(response);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
+    }
+
+    private void parseJSONWithGSON(String jsonData) {
+        Gson gson = new Gson();
+        List<App> appList = gson.fromJson(jsonData, new TypeToken<List<App>>() {
+        }.getType());
+        for (App app : appList) {
+            Log.d("MainActivity", "id is " + app.getId());
+            Log.d("MainActivity", "name is " + app.getName());
+            Log.d("MainActivity", "version is " + app.getVersion());
+        }
     }
 
     private void parseJSONWithJSONObject(String jsonData) {
