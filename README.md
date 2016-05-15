@@ -9,13 +9,15 @@
 
 ### HttpClient
 
-HttpClient 这个库 [在 Android 6.0 已经被废弃了](http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html)，引入方式见 <http://stackoverflow.com/questions/32153318/httpclient-wont-import-in-android-studio>
+`HttpClient`  [在 Android 6.0 已被废弃](http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html)，引入方式见 <http://stackoverflow.com/questions/32153318/httpclient-wont-import-in-android-studio>
 
 ### Notification
 
-`setLatestEventInfo` 已被废弃，使用 `Notification.Builder` 替代。
+`setLatestEventInfo` [在 Android 6.0 已被废弃](https://developer.android.com/sdk/api_diff/23/changes/android.app.Notification.html)，使用 `Notification.Builder` 替代。
 
-Android L 以后用 `Notification.Builder` 的 `setTicker` 设置的文字不会在状态栏上显示，但可以被用在可达性服务（Accessibility Service）上。
+Android 5.0 以后用 `Notification.Builder` 的 `setTicker` 设置的文字不会在状态栏上显示，但可以被用在可达性服务（Accessibility Service）上。
+
+### 注意 Android 6.0 运行时权限的处理
 
 ### 第 11 章
 
